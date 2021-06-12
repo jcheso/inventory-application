@@ -2,10 +2,13 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <p>Number of Models: <%= data.model_count %></p>
+    <p>Number of Cars for Sale: <%= data.model_instance_count %></p>
+    <p>Number of Makes: <%= data.make_count %></p>
   </body>
 </html>

@@ -14,7 +14,5 @@ ModelSchema.virtual("url").get(function () {
   return "/make/model/" + this._id;
 });
 
-// TODO: Virtual property to count number of stock (instances)
-
 //Export model
 module.exports = mongoose.model("Model", ModelSchema);

@@ -1,8 +1,33 @@
 var Make = require("../models/make");
+var Model = require("../models/model");
+var ModelInstance = require("../models/modelinstance");
+const { body, validationResult } = require("express-validator");
+
+var async = require("async");
 
 exports.index = function (req, res) {
-  res.send("NOT IMPLEMENTED: Site Home Page");
+  async.parallel(
+    {
+      model_count: function (callback) {
+        Model.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
+      },
+      model_instance_count: function (callback) {
+        ModelInstance.countDocuments({}, callback);
+      },
+      make_count: function (callback) {
+        Make.countDocuments({}, callback);
+      },
+    },
+    function (err, results) {
+      res.render("index", {
+        title: "Luxury Car Sales",
+        error: err,
+        data: results,
+      });
+    }
+  );
 };
+
 // Display list of all Makes.
 exports.make_list = function (req, res) {
   res.send("NOT IMPLEMENTED: Make list");
