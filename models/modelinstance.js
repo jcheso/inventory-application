@@ -11,7 +11,7 @@ var ModelInstanceSchema = new Schema({
 
 // Virtual for model's URL
 ModelInstanceSchema.virtual("url").get(function () {
-  return "/make/modelinstance/" + this._id;
+  return "/inventory/make/modelinstance/" + this._id;
 });
 
 //Export model

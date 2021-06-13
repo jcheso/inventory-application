@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 Make: #{make.name}
+
+  p #[strong Country:] #{make.country}
+    
+
+
+  hr
+  p
+    a(href=make.url+'/delete') Delete Make
+  p
+    a(href=make.url+'/update') Update Make

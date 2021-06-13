@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #[em CarSales]
+
+  h1 Dynamic content
+
+  if error
+    p Error getting dynamic content.
+  else
+    p The library has the following record counts:
+
+    ul
+      li #[strong Models:] !{data.model_count}
+      li #[strong For Sale:] !{data.model_instance_count}
+      li #[strong Makes:] !{data.make_count}

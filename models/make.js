@@ -9,7 +9,7 @@ var MakeSchema = new Schema({
 
 // Virtual for model's URL
 MakeSchema.virtual("url").get(function () {
-  return "/make/" + this._id;
+  return "/inventory/make/" + this._id;
 });
 
 //Export model

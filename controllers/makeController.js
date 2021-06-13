@@ -20,7 +20,7 @@ exports.index = function (req, res) {
     },
     function (err, results) {
       res.render("index", {
-        title: "Luxury Car Sales",
+        title: "CarSales",
         error: err,
         data: results,
       });
@@ -30,12 +30,43 @@ exports.index = function (req, res) {
 
 // Display list of all Makes.
 exports.make_list = function (req, res) {
-  res.send("NOT IMPLEMENTED: Make list");
+  Make.find({}, "name").exec(function (err, list_makes) {
+    if (err) {
+      return next(err);
+    }
+    //Successful, so render
+    res.render("make_list", { title: "Make List", make_list: list_makes });
+  });
 };
 
 // Display detail page for a specific Make.
 exports.make_detail = function (req, res) {
-  res.send("NOT IMPLEMENTED: Make detail: " + req.params.id);
+  async.parallel(
+    {
+      make: function (callback) {
+        Make.findById(req.params.id).exec(callback);
+      },
+      model_instance: function (callback) {
+        ModelInstance.find({ make: req.params.id }).exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if (results.make == null) {
+        // No results.
+        var err = new Error("Make not found");
+        err.status = 404;
+        return next(err);
+      }
+      // Successful, so render.
+      res.render("make_detail", {
+        title: results.make.name,
+        make: results.make,
+      });
+    }
+  );
 };
 
 // Display Make create form on GET.
